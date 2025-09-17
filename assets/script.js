@@ -365,44 +365,69 @@ function updateNavigation(searchTerm) {
     });
 }
 
-// Mode sombre
+// Mode sombre amélioré
 function initDarkMode() {
     const darkModeBtn = document.createElement('button');
-    darkModeBtn.innerHTML = '🌙';
     darkModeBtn.className = 'dark-mode-toggle';
-    darkModeBtn.title = 'Mode sombre';
+    darkModeBtn.title = 'Basculer le mode sombre/clair';
+    darkModeBtn.setAttribute('aria-label', 'Basculer le mode sombre');
     
-    Object.assign(darkModeBtn.style, {
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        border: 'none',
-        background: '#2c3e50',
-        color: 'white',
-        fontSize: '1.5rem',
-        cursor: 'pointer',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-        zIndex: '999'
-    });
+    // Vérifier la préférence sauvegardée ou du système
+    const savedTheme = localStorage.getItem('darkMode');
+    const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDarkMode = savedTheme === 'true' || (savedTheme === null && systemDarkMode);
+    
+    // Appliquer le thème initial
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        darkModeBtn.innerHTML = '☀️';
+        darkModeBtn.title = 'Passer au mode clair';
+    } else {
+        darkModeBtn.innerHTML = '🌙';
+        darkModeBtn.title = 'Passer au mode sombre';
+    }
     
     document.body.appendChild(darkModeBtn);
     
     darkModeBtn.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        const isCurrentlyDark = document.body.classList.contains('dark-mode');
         
-        // Sauvegarder la préférence
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        // Animation de rotation du bouton
+        this.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            this.style.transform = 'rotate(0deg)';
+        }, 300);
+        
+        if (isCurrentlyDark) {
+            // Passer en mode clair
+            document.body.classList.remove('dark-mode');
+            this.innerHTML = '🌙';
+            this.title = 'Passer au mode sombre';
+            localStorage.setItem('darkMode', 'false');
+            showToast('Mode clair activé ☀️', 'info');
+        } else {
+            // Passer en mode sombre
+            document.body.classList.add('dark-mode');
+            this.innerHTML = '☀️';
+            this.title = 'Passer au mode clair';
+            localStorage.setItem('darkMode', 'true');
+            showToast('Mode sombre activé 🌙', 'info');
+        }
     });
     
-    // Charger la préférence
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-        darkModeBtn.innerHTML = '☀️';
-    }
+    // Écouter les changements de préférence système
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        // Uniquement si l'utilisateur n'a pas de préférence sauvegardée
+        if (localStorage.getItem('darkMode') === null) {
+            if (e.matches) {
+                document.body.classList.add('dark-mode');
+                darkModeBtn.innerHTML = '☀️';
+            } else {
+                document.body.classList.remove('dark-mode');
+                darkModeBtn.innerHTML = '🌙';
+            }
+        }
+    });
 }
 
 // Barre de progression de lecture
