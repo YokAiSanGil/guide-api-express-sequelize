@@ -57,61 +57,55 @@ function fixLayoutIfNeeded() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    fixLayoutIfNeeded();
-    initNavigation();
-    initCodeCopy();
-    initAnimations();
-    initScrollSpy();
-});
-
-// Navigation simplifiée avec chapitres collapsibles
+// Navigation corrigée et fonctionnelle
 function initNavigation() {
-    const chapters = document.querySelectorAll('.nav-link.chapter');
     const allLinks = document.querySelectorAll('.nav-link');
     
-    // Gérer les clics sur les chapitres
-    chapters.forEach(chapter => {
-        chapter.addEventListener('click', function(e) {
+    // Gérer TOUS les liens de navigation
+    allLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            const chapterName = this.dataset.chapter;
-            const subMenu = document.querySelector(`.sub-menu[data-chapter="${chapterName}"]`);
+            const href = this.getAttribute('href');
+            const isChapterTitle = this.classList.contains('chapter-title');
             
-            // Fermer tous les autres sous-menus
-            document.querySelectorAll('.sub-menu').forEach(menu => {
-                if (menu !== subMenu) menu.classList.remove('open');
-            });
-            
-            // Toggle le sous-menu actuel
-            if (subMenu) {
-                subMenu.classList.toggle('open');
+            if (isChapterTitle) {
+                // C'est un titre de chapitre
+                const chapter = this.closest('.chapter');
+                
+                // Fermer tous les autres chapitres
+                document.querySelectorAll('.chapter').forEach(ch => {
+                    if (ch !== chapter) ch.classList.remove('open');
+                });
+                
+                // Toggle ce chapitre
+                chapter.classList.toggle('open');
+            } else {
+                // C'est un lien normal ou sous-lien
+                // S'assurer que le chapitre parent est ouvert si c'est un sous-lien
+                const parentChapter = this.closest('.chapter');
+                if (parentChapter) {
+                    parentChapter.classList.add('open');
+                }
             }
             
-            // Navigation vers la section
-            navigateToSection(this.getAttribute('href'));
+            // Dans tous les cas, naviguer vers la section
+            setActiveLink(this);
+            scrollToSection(href);
         });
     });
     
-    // Gérer les clics sur tous les liens
-    allLinks.forEach(link => {
-        if (!link.classList.contains('chapter')) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigateToSection(this.getAttribute('href'));
-            });
-        }
-    });
-    
-    function navigateToSection(href) {
-        // Supprimer active de tous les liens
+    // Fonction pour activer le bon lien
+    function setActiveLink(clickedLink) {
+        // Enlever active de tous les liens
         allLinks.forEach(l => l.classList.remove('active'));
         
-        // Activer le lien correspondant
-        const activeLink = document.querySelector(`[href="${href}"]`);
-        if (activeLink) activeLink.classList.add('active');
-        
-        // Scroll vers la section
+        // Activer le lien cliqué
+        clickedLink.classList.add('active');
+    }
+    
+    // Fonction pour scroller vers une section
+    function scrollToSection(href) {
         const section = document.querySelector(href);
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
@@ -129,29 +123,39 @@ function initCodeCopy() {
         
         if (copyBtn && codeElement) {
             copyBtn.addEventListener('click', function() {
-                const code = codeElement.textContent;
-                
-                navigator.clipboard.writeText(code).then(() => {
-                    // Feedback visuel
-                    const originalText = copyBtn.textContent;
-                    copyBtn.textContent = 'Copié !';
-                    copyBtn.classList.add('copied');
+                try {
+                    const code = codeElement.textContent;
                     
-                    // Animation du code
-                    codeElement.classList.add('highlight-copied');
-                    
-                    setTimeout(() => {
-                        copyBtn.textContent = originalText;
-                        copyBtn.classList.remove('copied');
-                        codeElement.classList.remove('highlight-copied');
-                    }, 2000);
-                    
-                    // Notification toast
-                    showToast('Code copié dans le presse-papiers !', 'success');
-                }).catch(err => {
-                    console.error('Erreur lors de la copie:', err);
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(code).then(() => {
+                            // Feedback visuel
+                            const originalText = copyBtn.textContent;
+                            copyBtn.textContent = 'Copié !';
+                            copyBtn.classList.add('copied');
+                            
+                            // Animation du code
+                            codeElement.classList.add('highlight-copied');
+                            
+                            setTimeout(() => {
+                                copyBtn.textContent = originalText;
+                                copyBtn.classList.remove('copied');
+                                codeElement.classList.remove('highlight-copied');
+                            }, 2000);
+                            
+                            // Notification toast
+                            showToast('Code copié dans le presse-papiers !', 'success');
+                        }).catch(err => {
+                            console.error('Erreur lors de la copie:', err);
+                            showToast('Erreur lors de la copie', 'error');
+                        });
+                    } else {
+                        // Fallback pour navigateurs anciens
+                        showToast('Copie non supportée sur ce navigateur', 'warning');
+                    }
+                } catch (error) {
+                    console.error('Erreur dans la fonction de copie:', error);
                     showToast('Erreur lors de la copie', 'error');
-                });
+                }
             });
         }
     });
@@ -182,33 +186,50 @@ function initAnimations() {
     });
 }
 
-// Scroll spy simplifié
+// ScrollSpy corrigé
 function initScrollSpy() {
     const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const allLinks = document.querySelectorAll('.nav-link');
     
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const id = entry.target.id;
-                const activeLink = document.querySelector(`[href="#${id}"]`);
+                const sectionId = entry.target.id;
+                const targetHref = `#${sectionId}`;
                 
-                if (activeLink) {
-                    // Supprimer active de tous les liens
-                    navLinks.forEach(link => link.classList.remove('active'));
+                // Enlever active de tous les liens
+                allLinks.forEach(l => l.classList.remove('active'));
+                
+                // Trouver TOUS les liens qui pointent vers cette section
+                const matchingLinks = document.querySelectorAll(`a[href="${targetHref}"]`);
+                
+                if (matchingLinks.length > 0) {
+                    // Prioriser : sous-lien > chapitre principal
+                    let linkToActivate = matchingLinks[0];
                     
-                    // Activer le lien correspondant
-                    activeLink.classList.add('active');
+                    // Chercher s'il y a un sous-lien (plus spécifique)
+                    for (let link of matchingLinks) {
+                        if (link.closest('.sub-links')) {
+                            linkToActivate = link;
+                            break;
+                        }
+                    }
                     
-                    // Ouvrir le chapitre parent si nécessaire
-                    const parentSubMenu = activeLink.closest('.sub-menu');
-                    if (parentSubMenu) {
-                        parentSubMenu.classList.add('open');
+                    // Activer le lien choisi
+                    linkToActivate.classList.add('active');
+                    
+                    // Ouvrir le chapitre parent si c'est un sous-lien
+                    const parentChapter = linkToActivate.closest('.chapter');
+                    if (parentChapter) {
+                        parentChapter.classList.add('open');
                     }
                 }
             }
         });
-    }, { threshold: 0.3 });
+    }, { 
+        threshold: 0.3,
+        rootMargin: '-20% 0px -70% 0px'
+    });
     
     sections.forEach(section => observer.observe(section));
 }
@@ -218,12 +239,22 @@ function showToast(message, type = 'info') {
     // Créer l'élément toast
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    toast.innerHTML = `
-        <div class="toast-content">
-            <span class="toast-icon">${getToastIcon(type)}</span>
-            <span class="toast-message">${message}</span>
-        </div>
-    `;
+    
+    // Créer le contenu de façon sécurisée
+    const toastContent = document.createElement('div');
+    toastContent.className = 'toast-content';
+    
+    const toastIcon = document.createElement('span');
+    toastIcon.className = 'toast-icon';
+    toastIcon.textContent = getToastIcon(type);
+    
+    const toastMessage = document.createElement('span');
+    toastMessage.className = 'toast-message';
+    toastMessage.textContent = message;
+    
+    toastContent.appendChild(toastIcon);
+    toastContent.appendChild(toastMessage);
+    toast.appendChild(toastContent);
     
     // Styles inline pour le toast
     Object.assign(toast.style, {

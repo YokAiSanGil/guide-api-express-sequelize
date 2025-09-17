@@ -4,85 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide Complet : API Express + Sequelize</title>
+    <meta name="description" content="Guide complet pour créer une API REST avec Express.js et Sequelize ORM. Tutoriel étape par étape avec code réel et bonnes pratiques.">
     <link rel="stylesheet" href="assets/style.css">
-    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDJMMjguNjQgOVYyM0wxNiAzMEwzLjM2IDIzVjlMMTYgMloiIGZpbGw9IiMzNDk4ZGIiLz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHg9IjgiIHk9IjgiIGZpbGw9IndoaXRlIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4K">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 </head>
 <body>
     <div class="container">
         <!-- Navigation latérale -->
-        <nav class="sidebar">
+        <nav class="sidebar" role="navigation" aria-label="Navigation principale">
             <h2>Sommaire</h2>
-            <ul class="nav-menu">
-                <li>
-                    <a href="#introduction" class="nav-link active">1. Introduction</a>
-                </li>
-                <li>
-                    <a href="#planification" class="nav-link chapter" data-chapter="config">2. Configuration</a>
-                    <ul class="sub-menu" data-chapter="config">
-                        <li><a href="#setup-projet" class="nav-link">2.1 Setup du projet</a></li>
-                        <li><a href="#dependances" class="nav-link">2.2 Dépendances</a></li>
-                        <li><a href="#environnement" class="nav-link">2.3 Environnement</a></li>
+            <ul class="nav-menu" role="list">
+                <li><a href="#introduction" class="nav-link active">Introduction</a></li>
+                
+                <li class="chapter">
+                    <a href="#planification" class="nav-link chapter-title">1. Configuration</a>
+                    <ul class="sub-links">
+                        <li><a href="#setup-projet" class="nav-link">1.1 Setup du projet</a></li>
+                        <li><a href="#dependances" class="nav-link">1.2 Dépendances</a></li>
+                        <li><a href="#environnement" class="nav-link">1.3 Environnement</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#structure" class="nav-link">3. Architecture</a>
-                </li>
-                <li>
-                    <a href="#database" class="nav-link">4. Base de données</a>
-                </li>
-                <li>
-                    <a href="#responses" class="nav-link chapter" data-chapter="responses">5. Réponses standardisées</a>
-                    <ul class="sub-menu" data-chapter="responses">
-                        <li><a href="#responses" class="nav-link">5.1 Status enum</a></li>
-                        <li><a href="#responses" class="nav-link">5.2 Mapping HTTP</a></li>
-                        <li><a href="#responses" class="nav-link">5.3 API responses</a></li>
-                        <li><a href="#responses" class="nav-link">5.4 Service results</a></li>
+                
+                <li><a href="#structure" class="nav-link">2. Architecture</a></li>
+                <li><a href="#database" class="nav-link">3. Base de données</a></li>
+                
+                <li class="chapter">
+                    <a href="#responses" class="nav-link chapter-title">4. Réponses standardisées</a>
+                    <ul class="sub-links">
+                        <li><a href="#status-enum" class="nav-link">4.1 Status enum</a></li>
+                        <li><a href="#mapping-http" class="nav-link">4.2 Mapping HTTP</a></li>
+                        <li><a href="#api-responses" class="nav-link">4.3 API responses</a></li>
+                        <li><a href="#service-results" class="nav-link">4.4 Service results</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#serveur" class="nav-link">6. Serveur Express</a>
-                </li>
-                <li>
-                    <a href="#modeles" class="nav-link chapter" data-chapter="models">7. Modèles</a>
-                    <ul class="sub-menu" data-chapter="models">
-                        <li><a href="#modeles" class="nav-link">7.1 Modèle Cars</a></li>
-                        <li><a href="#modeles" class="nav-link">7.2 Modèle Users</a></li>
-                        <li><a href="#modeles" class="nav-link">7.3 Relations</a></li>
+                
+                <li class="chapter">
+                    <a href="#modeles" class="nav-link chapter-title">5. Modèles</a>
+                    <ul class="sub-links">
+                        <li><a href="#modele-users" class="nav-link">5.1 Modèle Users</a></li>
+                        <li><a href="#modele-cars" class="nav-link">5.2 Modèle Cars</a></li>
+                        <li><a href="#relations" class="nav-link">5.3 Relations</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#routes" class="nav-link chapter" data-chapter="routes">8. Routes & Contrôleurs</a>
-                    <ul class="sub-menu" data-chapter="routes">
-                        <li><a href="#routes" class="nav-link">8.1 Contrôleurs</a></li>
-                        <li><a href="#routes" class="nav-link">8.2 Routes REST</a></li>
-                        <li><a href="#routes" class="nav-link">8.3 Validation</a></li>
+                
+                <li><a href="#serveur" class="nav-link">6. Serveur Express</a></li>
+                
+                <li class="chapter">
+                    <a href="#routes" class="nav-link chapter-title">7. Routes & Contrôleurs</a>
+                    <ul class="sub-links">
+                        <li><a href="#controleurs" class="nav-link">7.1 Contrôleurs</a></li>
+                        <li><a href="#routes-rest" class="nav-link">7.2 Routes REST</a></li>
+                        <li><a href="#validation" class="nav-link">7.3 Configuration</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#services" class="nav-link chapter" data-chapter="services">9. Services</a>
-                    <ul class="sub-menu" data-chapter="services">
-                        <li><a href="#services" class="nav-link">9.1 Logique métier</a></li>
-                        <li><a href="#services" class="nav-link">9.2 Validation</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#repositories" class="nav-link chapter" data-chapter="repositories">10. Repositories</a>
-                    <ul class="sub-menu" data-chapter="repositories">
-                        <li><a href="#repositories" class="nav-link">10.1 Accès données</a></li>
-                        <li><a href="#repositories" class="nav-link">10.2 Requêtes complexes</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#middleware" class="nav-link">11. Middleware</a>
-                </li>
-                <li>
-                    <a href="#bonnes-pratiques" class="nav-link">12. Bonnes Pratiques</a>
-                </li>
+                
+                <li><a href="#middleware" class="nav-link">8. Middleware</a></li>
+                <li><a href="#assemblage" class="nav-link">9. Assemblage final</a></li>
+                <li><a href="#bonnes-pratiques" class="nav-link">10. Bonnes Pratiques</a></li>
             </ul>
         </nav>
 
         <!-- Contenu principal -->
-        <main class="main-content">
+        <main class="main-content" role="main" aria-label="Contenu principal du guide">
             <!-- En-tête -->
             <header class="header">
                 <h1>🚀 Guide Complet : API Express + Sequelize</h1>
@@ -113,7 +96,7 @@
 
             <!-- Planification -->
             <section id="planification" class="section">
-                <h2>📋 1. Planification et Configuration</h2>
+                <h2>📋 1. Configuration et Planification</h2>
                 
                 <div id="setup-projet" class="step">
                     <h3><span class="step-number">1</span>🚀 Setup du projet</h3>
@@ -216,7 +199,7 @@ JWT_SECRET=mon_secret_super_securise</code></pre>
 
             <!-- Structure -->
             <section id="structure" class="section">
-                <h2>📁 2. Structure des dossiers</h2>
+                <h2>📁 2. Architecture des dossiers</h2>
                 
                 <div class="step">
                     <h3>📂 Architecture multicouches recommandée</h3>
@@ -363,12 +346,178 @@ module.exports = {
                 </div>
             </section>
 
+            <!-- Modèles -->
+            <section id="modeles" class="section">
+                <h2>📊 5. Modèles Sequelize</h2>
+                
+                <div id="modele-users" class="step">
+                    <h3><span class="step-number">12</span>👤 Modèle User</h3>
+                    <p>Créez <code>models/user.model.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
+                        </div>
+                        <pre><code>const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  firstName: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [2, 50]
+    }
+  },
+  lastName: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [2, 50]
+    }
+  },
+  email: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
+  password: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    validate: {
+      len: [6, 255]
+    }
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  }
+}, {
+  tableName: 'users',
+  timestamps: true, // createdAt, updatedAt
+  paranoid: true,   // deletedAt (soft delete)
+  hooks: {
+    beforeCreate: (user) => {
+      // Hash du mot de passe ici si nécessaire
+    }
+  }
+});
+
+module.exports = User;</code></pre>
+                    </div>
+                </div>
+
+                <div id="modele-cars" class="step">
+                    <h3><span class="step-number">13</span>🚗 Modèle Car</h3>
+                    <p>Créez <code>models/car.model.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
+                        </div>
+                        <pre><code>const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
+
+const Car = sequelize.define('Car', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  brand: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  model: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1900,
+      max: new Date().getFullYear() + 1
+    }
+  },
+  price: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      min: 0
+    }
+  },
+  color: {
+    type: DataTypes.STRING(30),
+    allowNull: true
+  },
+  isAvailable: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  }
+}, {
+  tableName: 'cars',
+  timestamps: true,
+  paranoid: true
+});
+
+module.exports = Car;</code></pre>
+                    </div>
+                </div>
+
+                <div id="relations" class="step">
+                    <h3><span class="step-number">14</span>🔗 Relations entre modèles</h3>
+                    <p>Créez <code>models/associations.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
+                        </div>
+                        <pre><code>const User = require('./user.model');
+const Car = require('./car.model');
+
+// Un utilisateur peut avoir plusieurs voitures
+User.hasMany(Car, {
+  foreignKey: 'userId',
+  as: 'cars'
+});
+
+// Une voiture appartient à un utilisateur
+Car.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'owner'
+});
+
+module.exports = { User, Car };</code></pre>
+                    </div>
+                </div>
+            </section>
+
             <!-- Serveur -->
             <section id="serveur" class="section">
-                <h2>🖥️ 4. Création du serveur de base</h2>
+                <h2>🖥️ 6. Création du serveur de base</h2>
                 
                 <div class="step">
-                    <h3><span class="step-number">7</span>🚀 Serveur Express optimisé</h3>
+                    <h3><span class="step-number">15</span>🚀 Serveur Express optimisé</h3>
                     <p>Point d'entrée simple et efficace basé sur votre architecture :</p>
                     
                     <div class="code-container">
@@ -433,14 +582,14 @@ bootstrap();</code></pre>
             <section id="responses" class="section">
                 <h2>📤 4. Système de réponses standardisées</h2>
                 
-                <div class="step">
+                <div id="status-enum" class="step">
                     <h3><span class="step-number">8</span>🎯 Énumérations de status</h3>
                     <p>Définition centralisée des états de service :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">utils/serviceStatus.enum.js</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>module.exports = {
     CREATED: 'Created',
@@ -452,14 +601,14 @@ bootstrap();</code></pre>
                     </div>
                 </div>
 
-                <div class="step">
+                <div id="mapping-http" class="step">
                     <h3><span class="step-number">9</span>🔄 Mapping Status → HTTP</h3>
                     <p>Utilitaire pour convertir les status internes en codes HTTP :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">utils/statusToHttpCode.utils.js</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const ServiceStatus = require('./serviceStatus.enum');
 
@@ -482,14 +631,14 @@ module.exports = (status) => {
                     </div>
                 </div>
 
-                <div class="step">
+                <div id="api-responses" class="step">
                     <h3><span class="step-number">10</span>🏷️ Réponses API standardisées</h3>
                     <p>Gestionnaire uniforme des réponses HTTP :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">responses/apiCallResult.response.js</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const statusToHttp = require("../utils/statusToHttpCode.utils");
 
@@ -521,14 +670,14 @@ module.exports = (res, result) => {
                     </div>
                 </div>
 
-                <div class="step">
+                <div id="service-results" class="step">
                     <h3><span class="step-number">11</span>⚙️ Résultats de services internes</h3>
                     <p>Factory pour créer des résultats de services :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">responses/serviceCallResult.response.js</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const ServiceStatus = require('../utils/serviceStatus.enum');
 
@@ -732,16 +881,16 @@ module.exports = { User, Car };</code></pre>
 
             <!-- Routes et Contrôleurs -->
             <section id="routes" class="section">
-                <h2>🛣️ 6. Contrôleurs et Routes</h2>
+                <h2>🛣️ 7. Contrôleurs et Routes</h2>
                 
-                <div class="step">
-                    <h3><span class="step-number">11</span>🎛️ Contrôleur User</h3>
+                <div id="controleurs" class="step">
+                    <h3><span class="step-number">16</span>🎛️ Contrôleur User</h3>
                     <p>Créez <code>controllers/user.controller.js</code> avec les opérations CRUD complètes :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const { User, Car } = require('../models/associations');
 const { Op } = require('sequelize');
@@ -789,35 +938,6 @@ class UserController {
     }
   }
 
-  // GET /api/users/:id
-  async getUserById(req, res, next) {
-    try {
-      const { id } = req.params;
-      
-      const user = await User.findByPk(id, {
-        include: [{
-          model: Car,
-          as: 'cars'
-        }],
-        attributes: { exclude: ['password'] }
-      });
-
-      if (!user) {
-        return res.status(404).json({
-          success: false,
-          message: 'Utilisateur non trouvé'
-        });
-      }
-
-      res.json({
-        success: true,
-        data: user
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   // POST /api/users
   async createUser(req, res, next) {
     try {
@@ -830,7 +950,6 @@ class UserController {
         password // À hasher dans un vrai projet
       });
 
-      // Retourner sans le mot de passe
       const { password: _, ...userWithoutPassword } = user.toJSON();
 
       res.status(201).json({
@@ -848,76 +967,20 @@ class UserController {
       next(error);
     }
   }
-
-  // PUT /api/users/:id
-  async updateUser(req, res, next) {
-    try {
-      const { id } = req.params;
-      const updates = req.body;
-
-      const [updatedRowsCount] = await User.update(updates, {
-        where: { id }
-      });
-
-      if (updatedRowsCount === 0) {
-        return res.status(404).json({
-          success: false,
-          message: 'Utilisateur non trouvé'
-        });
-      }
-
-      const updatedUser = await User.findByPk(id, {
-        attributes: { exclude: ['password'] }
-      });
-
-      res.json({
-        success: true,
-        data: updatedUser,
-        message: 'Utilisateur mis à jour avec succès'
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  // DELETE /api/users/:id
-  async deleteUser(req, res, next) {
-    try {
-      const { id } = req.params;
-      
-      const deletedRowsCount = await User.destroy({
-        where: { id }
-      });
-
-      if (deletedRowsCount === 0) {
-        return res.status(404).json({
-          success: false,
-          message: 'Utilisateur non trouvé'
-        });
-      }
-
-      res.json({
-        success: true,
-        message: 'Utilisateur supprimé avec succès'
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
 }
 
 module.exports = new UserController();</code></pre>
                     </div>
                 </div>
 
-                <div class="step">
-                    <h3><span class="step-number">12</span>🛣️ Routes User</h3>
+                <div id="routes-rest" class="step">
+                    <h3><span class="step-number">17</span>🛣️ Routes User</h3>
                     <p>Créez <code>routes/users.routes.js</code> :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const express = require('express');
 const userController = require('../controllers/user.controller');
@@ -936,14 +999,14 @@ module.exports = router;</code></pre>
                     </div>
                 </div>
 
-                <div class="step">
-                    <h3><span class="step-number">13</span>🗂️ Routes principales</h3>
+                <div id="validation" class="step">
+                    <h3><span class="step-number">18</span>🗂️ Routes principales</h3>
                     <p>Créez <code>routes/index.js</code> :</p>
                     
                     <div class="code-container">
                         <div class="code-header">
                             <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
+                            <button class="copy-btn" aria-label="Copier le code">Copier</button>
                         </div>
                         <pre><code>const express = require('express');
 const userRoutes = require('./users.routes');
@@ -971,7 +1034,7 @@ module.exports = router;</code></pre>
 
             <!-- Middleware -->
             <section id="middleware" class="section">
-                <h2>🛡️ 7. Middleware et gestion d'erreurs</h2>
+                <h2>🛡️ 8. Middleware et gestion d'erreurs</h2>
                 
                 <div class="step">
                     <h3><span class="step-number">14</span>🔥 Gestion d'erreurs</h3>
@@ -1091,7 +1154,7 @@ module.exports = { validateUser };</code></pre>
 
             <!-- Assemblage -->
             <section id="assemblage" class="section">
-                <h2>🔧 8. Assemblage final</h2>
+                <h2>🔧 9. Assemblage final</h2>
                 
                 <div class="step">
                     <h3><span class="step-number">16</span>🔄 Mise à jour models/index.js</h3>
@@ -1169,7 +1232,7 @@ curl -X POST http://localhost:3000/api/users \
 
             <!-- Bonnes pratiques -->
             <section id="bonnes-pratiques" class="section">
-                <h2>✅ 9. Bonnes pratiques</h2>
+                <h2>✅ 10. Bonnes pratiques</h2>
                 
                 <div class="step">
                     <h3>📋 Liste de contrôle</h3>

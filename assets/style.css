@@ -63,51 +63,56 @@ body {
   font-size: 1.5rem;
 }
 
+/* Navigation simple et claire */
 .nav-menu {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-menu li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 2px;
 }
 
 .nav-menu a {
   display: block;
-  padding: 0.75rem 1rem;
+  padding: 8px 16px;
   color: var(--text-color);
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  background: transparent;
 }
 
 .nav-menu a:hover {
-  color: var(--primary-color);
-  background: var(--hover-bg);
+  background: #f0f0f0;
 }
 
 .nav-menu a.active {
-  color: var(--primary-color);
-  background: var(--hover-bg);
+  background: #e3f2fd;
+  border-left: 3px solid var(--primary-color);
   font-weight: 600;
 }
 
-.nav-menu .sub-menu {
+/* Chapitres avec sous-liens */
+.chapter .chapter-title {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.chapter .sub-links {
+  display: none;
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
 }
 
-.nav-menu .sub-menu.open {
-  max-height: 300px;
+.chapter.open .sub-links {
+  display: block;
 }
 
-.nav-menu .sub-menu a {
-  padding: 0.5rem 1rem 0.5rem 2rem;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+.chapter .sub-links a {
+  padding-left: 32px;
+  font-size: 14px;
+  color: #666;
 }
 
 /* Contenu principal */
