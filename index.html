@@ -166,41 +166,45 @@ JWT_SECRET=mon_secret_super_securise</code></pre>
                     <h3>📂 Architecture recommandée</h3>
                     <p>Organisez votre projet avec cette structure claire et évolutive :</p>
                     
-                    <div class="folder-structure">
-mon-api/
-├── config/
-│   └── database.js          # Configuration DB
-├── controllers/
-│   ├── users.controller.js  # Logique métier Users
-│   └── cars.controller.js   # Logique métier Cars
-├── middleware/
-│   ├── auth.js             # Authentification
-│   ├── logger.js           # Logs
-│   └── errorHandler.js     # Gestion erreurs
-├── models/
-│   ├── index.js            # Connexion Sequelize
-│   ├── user.model.js       # Modèle User
-│   └── car.model.js        # Modèle Car
-├── repositories/
-│   ├── user.repository.js  # Accès données Users
-│   └── car.repository.js   # Accès données Cars
-├── routes/
-│   ├── index.js            # Routes principales
-│   ├── users.routes.js     # Routes Users
-│   └── cars.routes.js      # Routes Cars
-├── services/
-│   ├── user.service.js     # Services Users
-│   └── car.service.js      # Services Cars
-├── utils/
-│   ├── validation.js       # Validations
-│   └── helpers.js          # Fonctions utiles
-├── migrations/             # Migrations DB
-├── seeders/               # Données de test
-├── tests/                 # Tests unitaires
-├── .env                   # Variables d'environnement
-├── .gitignore            # Git ignore
-├── index.js              # Point d'entrée
-└── package.json          # Configuration npm
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Structure des dossiers</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <div class="folder-structure">mon-api/
+├── <span class="folder">config/</span>
+│   └── <span class="file">database.js</span>          <span class="comment"># Configuration DB</span>
+├── <span class="folder">controllers/</span>
+│   ├── <span class="file">users.controller.js</span>  <span class="comment"># Logique métier Users</span>
+│   └── <span class="file">cars.controller.js</span>   <span class="comment"># Logique métier Cars</span>
+├── <span class="folder">middleware/</span>
+│   ├── <span class="file">auth.js</span>             <span class="comment"># Authentification</span>
+│   ├── <span class="file">logger.js</span>           <span class="comment"># Logs</span>
+│   └── <span class="file">errorHandler.js</span>     <span class="comment"># Gestion erreurs</span>
+├── <span class="folder">models/</span>
+│   ├── <span class="file">index.js</span>            <span class="comment"># Connexion Sequelize</span>
+│   ├── <span class="file">user.model.js</span>       <span class="comment"># Modèle User</span>
+│   └── <span class="file">car.model.js</span>        <span class="comment"># Modèle Car</span>
+├── <span class="folder">repositories/</span>
+│   ├── <span class="file">user.repository.js</span>  <span class="comment"># Accès données Users</span>
+│   └── <span class="file">car.repository.js</span>   <span class="comment"># Accès données Cars</span>
+├── <span class="folder">routes/</span>
+│   ├── <span class="file">index.js</span>            <span class="comment"># Routes principales</span>
+│   ├── <span class="file">users.routes.js</span>     <span class="comment"># Routes Users</span>
+│   └── <span class="file">cars.routes.js</span>      <span class="comment"># Routes Cars</span>
+├── <span class="folder">services/</span>
+│   ├── <span class="file">user.service.js</span>     <span class="comment"># Services Users</span>
+│   └── <span class="file">car.service.js</span>      <span class="comment"># Services Cars</span>
+├── <span class="folder">utils/</span>
+│   ├── <span class="file">validation.js</span>       <span class="comment"># Validations</span>
+│   └── <span class="file">helpers.js</span>          <span class="comment"># Fonctions utiles</span>
+├── <span class="folder">migrations/</span>             <span class="comment"># Migrations DB</span>
+├── <span class="folder">seeders/</span>               <span class="comment"># Données de test</span>
+├── <span class="folder">tests/</span>                 <span class="comment"># Tests unitaires</span>
+├── <span class="file">.env</span>                   <span class="comment"># Variables d'environnement</span>
+├── <span class="file">.gitignore</span>            <span class="comment"># Git ignore</span>
+├── <span class="file">index.js</span>              <span class="comment"># Point d'entrée</span>
+└── <span class="file">package.json</span>          <span class="comment"># Configuration npm</span></div>
                     </div>
 
                     <div class="alert alert-success">

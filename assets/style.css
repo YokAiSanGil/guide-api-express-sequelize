@@ -324,14 +324,32 @@ li {
 
 /* Structure de dossiers */
 .folder-structure {
-  background: var(--code-bg);
+  background: #1e1e1e;
+  color: #d4d4d4;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 2rem;
   margin: 1.5rem 0;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.8;
+  white-space: pre;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.folder-structure .folder {
+  color: #569cd6;
+  font-weight: bold;
+}
+
+.folder-structure .file {
+  color: #d4d4d4;
+}
+
+.folder-structure .comment {
+  color: #6a9955;
+  font-style: italic;
 }
 
 /* Tables */
