@@ -277,7 +277,7 @@ JWT_SECRET=mon_secret_super_securise</code></pre>
                 <h2>🗄️ 3. Configuration de la base de données</h2>
                 
                 <div class="step">
-                    <h3><span class="step-number">5</span>🔧 Configuration PostgreSQL avec Sequelize</h3>
+                    <h3><span class="step-number">4</span>🔧 Configuration PostgreSQL avec Sequelize</h3>
                     <p>Configuration simple et efficace basée sur un projet réel :</p>
                     
                     <div class="code-container">
@@ -317,7 +317,7 @@ module.exports = sequelize;</code></pre>
                 </div>
 
                 <div class="step">
-                    <h3><span class="step-number">6</span>🔗 Initialisation des modèles</h3>
+                    <h3><span class="step-number">5</span>🔗 Initialisation des modèles</h3>
                     <p>Pattern d'initialisation simple et évolutif :</p>
                     
                     <div class="code-container">
@@ -351,7 +351,7 @@ module.exports = {
                 <h2>📊 5. Modèles Sequelize</h2>
                 
                 <div id="modele-users" class="step">
-                    <h3><span class="step-number">12</span>👤 Modèle User</h3>
+                    <h3><span class="step-number">6</span>👤 Modèle User</h3>
                     <p>Créez <code>models/user.model.js</code> :</p>
                     
                     <div class="code-container">
@@ -419,7 +419,7 @@ module.exports = User;</code></pre>
                 </div>
 
                 <div id="modele-cars" class="step">
-                    <h3><span class="step-number">13</span>🚗 Modèle Car</h3>
+                    <h3><span class="step-number">7</span>🚗 Modèle Car</h3>
                     <p>Créez <code>models/car.model.js</code> :</p>
                     
                     <div class="code-container">
@@ -484,7 +484,7 @@ module.exports = Car;</code></pre>
                 </div>
 
                 <div id="relations" class="step">
-                    <h3><span class="step-number">14</span>🔗 Relations entre modèles</h3>
+                    <h3><span class="step-number">8</span>🔗 Relations entre modèles</h3>
                     <p>Créez <code>models/associations.js</code> :</p>
                     
                     <div class="code-container">
@@ -517,7 +517,7 @@ module.exports = { User, Car };</code></pre>
                 <h2>🖥️ 6. Création du serveur de base</h2>
                 
                 <div class="step">
-                    <h3><span class="step-number">15</span>🚀 Serveur Express optimisé</h3>
+                    <h3><span class="step-number">9</span>🚀 Serveur Express optimisé</h3>
                     <p>Point d'entrée simple et efficace basé sur votre architecture :</p>
                     
                     <div class="code-container">
@@ -583,7 +583,7 @@ bootstrap();</code></pre>
                 <h2>📤 4. Système de réponses standardisées</h2>
                 
                 <div id="status-enum" class="step">
-                    <h3><span class="step-number">8</span>🎯 Énumérations de status</h3>
+                    <h3><span class="step-number">10</span>🎯 Énumérations de status</h3>
                     <p>Définition centralisée des états de service :</p>
                     
                     <div class="code-container">
@@ -602,7 +602,7 @@ bootstrap();</code></pre>
                 </div>
 
                 <div id="mapping-http" class="step">
-                    <h3><span class="step-number">9</span>🔄 Mapping Status → HTTP</h3>
+                    <h3><span class="step-number">11</span>🔄 Mapping Status → HTTP</h3>
                     <p>Utilitaire pour convertir les status internes en codes HTTP :</p>
                     
                     <div class="code-container">
@@ -632,7 +632,7 @@ module.exports = (status) => {
                 </div>
 
                 <div id="api-responses" class="step">
-                    <h3><span class="step-number">10</span>🏷️ Réponses API standardisées</h3>
+                    <h3><span class="step-number">12</span>🏷️ Réponses API standardisées</h3>
                     <p>Gestionnaire uniforme des réponses HTTP :</p>
                     
                     <div class="code-container">
@@ -671,7 +671,7 @@ module.exports = (res, result) => {
                 </div>
 
                 <div id="service-results" class="step">
-                    <h3><span class="step-number">11</span>⚙️ Résultats de services internes</h3>
+                    <h3><span class="step-number">13</span>⚙️ Résultats de services internes</h3>
                     <p>Factory pour créer des résultats de services :</p>
                     
                     <div class="code-container">
@@ -716,175 +716,13 @@ module.exports = {
                     </div>
                 </div>
             </section>
-                
-                <div class="step">
-                    <h3><span class="step-number">8</span>👤 Modèle User</h3>
-                    <p>Créez <code>models/user.model.js</code> :</p>
-                    
-                    <div class="code-container">
-                        <div class="code-header">
-                            <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
-                        </div>
-                        <pre><code>const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
-
-const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  firstName: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      len: [2, 50]
-    }
-  },
-  lastName: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      len: [2, 50]
-    }
-  },
-  email: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true
-    }
-  },
-  password: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      len: [6, 255]
-    }
-  },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  }
-}, {
-  tableName: 'users',
-  timestamps: true, // createdAt, updatedAt
-  paranoid: true,   // deletedAt (soft delete)
-  hooks: {
-    beforeCreate: (user) => {
-      // Hash du mot de passe ici si nécessaire
-    }
-  }
-});
-
-module.exports = User;</code></pre>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <h3><span class="step-number">9</span>🚗 Modèle Car</h3>
-                    <p>Créez <code>models/car.model.js</code> :</p>
-                    
-                    <div class="code-container">
-                        <div class="code-header">
-                            <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
-                        </div>
-                        <pre><code>const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
-
-const Car = sequelize.define('Car', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  brand: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  model: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  year: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 1900,
-      max: new Date().getFullYear() + 1
-    }
-  },
-  price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-    validate: {
-      min: 0
-    }
-  },
-  color: {
-    type: DataTypes.STRING(30),
-    allowNull: true
-  },
-  isAvailable: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  }
-}, {
-  tableName: 'cars',
-  timestamps: true,
-  paranoid: true
-});
-
-module.exports = Car;</code></pre>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <h3><span class="step-number">10</span>🔗 Relations entre modèles</h3>
-                    <p>Créez <code>models/associations.js</code> :</p>
-                    
-                    <div class="code-container">
-                        <div class="code-header">
-                            <span class="code-language">javascript</span>
-                            <button class="copy-btn">Copier</button>
-                        </div>
-                        <pre><code>const User = require('./user.model');
-const Car = require('./car.model');
-
-// Un utilisateur peut avoir plusieurs voitures
-User.hasMany(Car, {
-  foreignKey: 'userId',
-  as: 'cars'
-});
-
-// Une voiture appartient à un utilisateur
-Car.belongsTo(User, {
-  foreignKey: 'userId',
-  as: 'owner'
-});
-
-module.exports = { User, Car };</code></pre>
-                    </div>
-                </div>
-            </section>
 
             <!-- Routes et Contrôleurs -->
             <section id="routes" class="section">
                 <h2>🛣️ 7. Contrôleurs et Routes</h2>
                 
                 <div id="controleurs" class="step">
-                    <h3><span class="step-number">16</span>🎛️ Contrôleur User</h3>
+                    <h3><span class="step-number">14</span>🎛️ Contrôleur User</h3>
                     <p>Créez <code>controllers/user.controller.js</code> avec les opérations CRUD complètes :</p>
                     
                     <div class="code-container">
@@ -974,7 +812,7 @@ module.exports = new UserController();</code></pre>
                 </div>
 
                 <div id="routes-rest" class="step">
-                    <h3><span class="step-number">17</span>🛣️ Routes User</h3>
+                    <h3><span class="step-number">15</span>🛣️ Routes User</h3>
                     <p>Créez <code>routes/users.routes.js</code> :</p>
                     
                     <div class="code-container">
@@ -1000,7 +838,7 @@ module.exports = router;</code></pre>
                 </div>
 
                 <div id="validation" class="step">
-                    <h3><span class="step-number">18</span>🗂️ Routes principales</h3>
+                    <h3><span class="step-number">16</span>🗂️ Routes principales</h3>
                     <p>Créez <code>routes/index.js</code> :</p>
                     
                     <div class="code-container">
@@ -1037,7 +875,7 @@ module.exports = router;</code></pre>
                 <h2>🛡️ 8. Middleware et gestion d'erreurs</h2>
                 
                 <div class="step">
-                    <h3><span class="step-number">14</span>🔥 Gestion d'erreurs</h3>
+                    <h3><span class="step-number">17</span>🔥 Gestion d'erreurs</h3>
                     <p>Créez <code>middleware/errorHandler.js</code> :</p>
                     
                     <div class="code-container">
@@ -1100,7 +938,7 @@ module.exports = { notFoundHandler, errorHandler };</code></pre>
                 </div>
 
                 <div class="step">
-                    <h3><span class="step-number">15</span>✅ Validation</h3>
+                    <h3><span class="step-number">18</span>✅ Validation</h3>
                     <p>Créez <code>middleware/validation.js</code> :</p>
                     
                     <div class="code-container">
@@ -1157,7 +995,7 @@ module.exports = { validateUser };</code></pre>
                 <h2>🔧 9. Assemblage final</h2>
                 
                 <div class="step">
-                    <h3><span class="step-number">16</span>🔄 Mise à jour models/index.js</h3>
+                    <h3><span class="step-number">19</span>🔄 Mise à jour models/index.js</h3>
                     <p>Version finale avec import des modèles :</p>
                     
                     <div class="code-container">

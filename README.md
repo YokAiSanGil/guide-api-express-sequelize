@@ -19,7 +19,7 @@ Aucune restriction, aucune attribution requise. Ce guide est créé pour la comm
 
 ## ✨ Fonctionnalités
 
-- 📖 **Guide étape par étape** : 16 étapes détaillées avec code complet
+- 📖 **Guide étape par étape** : 19 étapes détaillées avec code complet
 - 🎨 **Interface moderne** : Design responsive et animations fluides
 - 📋 **Copie en 1 clic** : Tous les blocs de code sont copiables instantanément
 - 🔍 **Recherche intégrée** : Trouvez rapidement ce que vous cherchez
