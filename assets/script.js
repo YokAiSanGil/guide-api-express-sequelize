@@ -119,12 +119,25 @@ function initCodeCopy() {
     
     codeBlocks.forEach(container => {
         const copyBtn = container.querySelector('.copy-btn');
-        const codeElement = container.querySelector('pre code');
+        let codeElement = container.querySelector('pre code');
+        
+        // Si pas de pre code, chercher une div.folder-structure
+        if (!codeElement) {
+            codeElement = container.querySelector('.folder-structure');
+        }
         
         if (copyBtn && codeElement) {
             copyBtn.addEventListener('click', function() {
                 try {
-                    const code = codeElement.textContent;
+                    let code = '';
+                    
+                    // Traitement spécial pour la structure de dossiers
+                    if (codeElement.classList.contains('folder-structure')) {
+                        // Pour la structure de dossiers, copier le contenu complet mais nettoyer les balises HTML
+                        code = codeElement.textContent || codeElement.innerText;
+                    } else {
+                        code = codeElement.textContent;
+                    }
                     
                     if (navigator.clipboard) {
                         navigator.clipboard.writeText(code).then(() => {
