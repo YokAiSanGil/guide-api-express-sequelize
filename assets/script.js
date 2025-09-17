@@ -57,96 +57,66 @@ function fixLayoutIfNeeded() {
     }
 }
 
-// Navigation interactive avec chapitres collapsibles
+document.addEventListener('DOMContentLoaded', function() {
+    fixLayoutIfNeeded();
+    initNavigation();
+    initCodeCopy();
+    initAnimations();
+    initScrollSpy();
+});
+
+// Navigation simplifiée avec chapitres collapsibles
 function initNavigation() {
-    const chapterLinks = document.querySelectorAll('.chapter-link');
-    const allNavLinks = document.querySelectorAll('.nav-menu a');
+    const chapters = document.querySelectorAll('.nav-link.chapter');
+    const allLinks = document.querySelectorAll('.nav-link');
     
-    // Initialiser les chapitres collapsibles
-    chapterLinks.forEach(chapterLink => {
-        const parentLi = chapterLink.parentElement;
-        const subMenu = parentLi.querySelector('.sub-menu');
-        
-        if (subMenu) {
-            // Ajouter un gestionnaire de clic pour toggle le chapitre
-            chapterLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Toggle expanded class sur le chapitre
-                chapterLink.classList.toggle('expanded');
-                
-                // Toggle expanded class sur le sous-menu
-                subMenu.classList.toggle('expanded');
-                
-                // Si le chapitre n'a qu'une section principale, naviguer vers elle
-                const targetId = chapterLink.getAttribute('href');
-                if (targetId && targetId.startsWith('#')) {
-                    const targetSection = document.getElementById(targetId.substring(1));
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
+    // Gérer les clics sur les chapitres
+    chapters.forEach(chapter => {
+        chapter.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const chapterName = this.dataset.chapter;
+            const subMenu = document.querySelector(`.sub-menu[data-chapter="${chapterName}"]`);
+            
+            // Fermer tous les autres sous-menus
+            document.querySelectorAll('.sub-menu').forEach(menu => {
+                if (menu !== subMenu) menu.classList.remove('open');
             });
             
-            // Gérer les clics sur les sous-éléments
-            const subLinks = subMenu.querySelectorAll('a');
-            subLinks.forEach(subLink => {
-                subLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation(); // Empêcher la fermeture du chapitre
-                    
-                    // Supprimer active de tous les liens
-                    allNavLinks.forEach(a => a.classList.remove('active'));
-                    
-                    // Activer le lien cliqué et son chapitre parent
-                    subLink.classList.add('active');
-                    chapterLink.classList.add('active');
-                    
-                    // S'assurer que le chapitre est étendu
-                    chapterLink.classList.add('expanded');
-                    subMenu.classList.add('expanded');
-                    
-                    // Faire défiler vers la section
-                    const targetId = subLink.getAttribute('href');
-                    if (targetId && targetId.startsWith('#')) {
-                        const targetSection = document.getElementById(targetId.substring(1));
-                        if (targetSection) {
-                            targetSection.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    }
-                });
-            });
-        } else {
-            // Pour les chapitres sans sous-menu
-            chapterLink.addEventListener('click', function(e) {
+            // Toggle le sous-menu actuel
+            if (subMenu) {
+                subMenu.classList.toggle('open');
+            }
+            
+            // Navigation vers la section
+            navigateToSection(this.getAttribute('href'));
+        });
+    });
+    
+    // Gérer les clics sur tous les liens
+    allLinks.forEach(link => {
+        if (!link.classList.contains('chapter')) {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Supprimer active de tous les liens
-                allNavLinks.forEach(a => a.classList.remove('active'));
-                
-                // Activer le lien cliqué
-                chapterLink.classList.add('active');
-                
-                // Faire défiler vers la section
-                const targetId = chapterLink.getAttribute('href');
-                if (targetId && targetId.startsWith('#')) {
-                    const targetSection = document.getElementById(targetId.substring(1));
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
+                navigateToSection(this.getAttribute('href'));
             });
         }
     });
+    
+    function navigateToSection(href) {
+        // Supprimer active de tous les liens
+        allLinks.forEach(l => l.classList.remove('active'));
+        
+        // Activer le lien correspondant
+        const activeLink = document.querySelector(`[href="${href}"]`);
+        if (activeLink) activeLink.classList.add('active');
+        
+        // Scroll vers la section
+        const section = document.querySelector(href);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 }
 
 // Copie de code avec feedback
@@ -212,48 +182,35 @@ function initAnimations() {
     });
 }
 
-// Navigation active selon le scroll avec support des chapitres collapsibles
+// Scroll spy simplifié
 function initScrollSpy() {
     const sections = document.querySelectorAll('.section');
-    const allNavLinks = document.querySelectorAll('.nav-menu a');
-    const chapterLinks = document.querySelectorAll('.chapter-link');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    const observerOptions = {
-        threshold: 0.3,
-        rootMargin: '-100px 0px -50% 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
+                const id = entry.target.id;
+                const activeLink = document.querySelector(`[href="#${id}"]`);
                 
-                // Retirer active de tous les liens
-                allNavLinks.forEach(link => link.classList.remove('active'));
-                
-                // Trouver le lien correspondant à cette section
-                const activeLink = document.querySelector(`.nav-menu a[href="#${id}"]`);
                 if (activeLink) {
+                    // Supprimer active de tous les liens
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // Activer le lien correspondant
                     activeLink.classList.add('active');
                     
-                    // Si c'est un sous-lien, activer aussi le chapitre parent et l'étendre
+                    // Ouvrir le chapitre parent si nécessaire
                     const parentSubMenu = activeLink.closest('.sub-menu');
                     if (parentSubMenu) {
-                        const parentLi = parentSubMenu.parentElement;
-                        const chapterLink = parentLi.querySelector('.chapter-link');
-                        if (chapterLink) {
-                            chapterLink.classList.add('active', 'expanded');
-                            parentSubMenu.classList.add('expanded');
-                        }
+                        parentSubMenu.classList.add('open');
                     }
                 }
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.3 });
     
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    sections.forEach(section => observer.observe(section));
 }
 
 // Système de notifications toast
