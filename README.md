@@ -16,9 +16,6 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 
 Aucune restriction, aucune attribution requise. Ce guide est créé pour la communauté des développeurs.
 
-## 📞 Contact
-
-- GitHub : [@YokAiSanGil](https://github.com/YokAiSanGil)elize depuis zéro.
 
 ## ✨ Fonctionnalités
 
@@ -140,7 +137,7 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 
 ## � Licence
 
-MIT License - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+No Licence
 
 ## 📞 Contact
 
