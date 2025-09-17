@@ -1,6 +1,24 @@
 # Guide Interactif - API Express + Sequelize
 
-� **Guide complet et interactif** pour créer une API REST avec Express.js et Sequelize depuis zéro.
+� **Guide complet et interactif** pour créer une API REST avec E## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/amélioration`)
+3. Commit vos changements (`git commit -m 'Ajout nouvelle fonctionnalité'`)
+4. Push vers la branche (`git push origin feature/amélioration`)
+5. Ouvrir une Pull Request
+
+## 🔓 Licence
+
+**Projet totalement open source** - Utilisez, modifiez, distribuez librement !
+
+Aucune restriction, aucune attribution requise. Ce guide est créé pour la communauté des développeurs.
+
+## 📞 Contact
+
+- GitHub : [@YokAiSanGil](https://github.com/YokAiSanGil)elize depuis zéro.
 
 ## ✨ Fonctionnalités
 
