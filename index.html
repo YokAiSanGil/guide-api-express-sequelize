@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Complet : API Express + Sequelize</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDJMMjguNjQgOVYyM0wxNiAzMEwzLjM2IDIzVjlMMTYgMloiIGZpbGw9IiMzNDk4ZGIiLz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHg9IjgiIHk9IjgiIGZpbGw9IndoaXRlIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4K">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation latérale -->
+        <nav class="sidebar">
+            <h2>📚 Sommaire</h2>
+            <ul class="nav-menu">
+                <li><a href="#introduction" class="active">🚀 Introduction</a></li>
+                <li><a href="#planification">📋 Planification</a>
+                    <ul class="sub-menu">
+                        <li><a href="#setup-projet">Setup du projet</a></li>
+                        <li><a href="#dependances">Dépendances</a></li>
+                        <li><a href="#environnement">Environnement</a></li>
+                    </ul>
+                </li>
+                <li><a href="#structure">📁 Structure</a></li>
+                <li><a href="#database">🗄️ Base de données</a></li>
+                <li><a href="#serveur">🖥️ Serveur</a></li>
+                <li><a href="#modeles">📊 Modèles</a></li>
+                <li><a href="#routes">🛣️ Routes & Contrôleurs</a></li>
+                <li><a href="#middleware">🛡️ Middleware</a></li>
+                <li><a href="#assemblage">🔧 Assemblage</a></li>
+                <li><a href="#bonnes-pratiques">✅ Bonnes Pratiques</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- En-tête -->
+            <header class="header">
+                <h1>🚀 Guide Complet : API Express + Sequelize</h1>
+                <p>Créer une API REST robuste depuis zéro - Stratégie étape par étape</p>
+            </header>
+
+            <!-- Introduction -->
+            <section id="introduction" class="section">
+                <h2>🎯 Introduction</h2>
+                <div class="step">
+                    <p>Ce guide vous accompagne dans la création d'une API REST complète avec <strong>Express.js</strong> et <strong>Sequelize ORM</strong>. Suivez les étapes dans l'ordre pour construire une application robuste et maintenable.</p>
+                    
+                    <div class="alert alert-info">
+                        <span class="alert-icon">💡</span>
+                        <div>
+                            <strong>Conseil :</strong> Testez chaque étape avant de passer à la suivante. Une approche progressive vous évitera d'être submergé par la complexité.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Planification -->
+            <section id="planification" class="section">
+                <h2>📋 1. Planification et Configuration</h2>
+                
+                <div id="setup-projet" class="step">
+                    <h3><span class="step-number">1</span>🚀 Setup du projet</h3>
+                    <p>Commencez par créer la structure de base de votre projet :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>mkdir mon-api
+cd mon-api
+npm init -y</code></pre>
+                    </div>
+                </div>
+
+                <div id="dependances" class="step">
+                    <h3><span class="step-number">2</span>📦 Installation des dépendances</h3>
+                    
+                    <h4>Dépendances principales :</h4>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code># Dépendances principales
+npm install express sequelize mysql2 dotenv cors helmet
+
+# Dépendances de développement
+npm install -D nodemon eslint prettier
+
+# Si PostgreSQL au lieu de MySQL
+npm install pg pg-hstore</code></pre>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <span class="alert-icon">🔍</span>
+                        <div>
+                            <strong>Explication des packages :</strong>
+                            <ul>
+                                <li><code>express</code> : Framework web Node.js</li>
+                                <li><code>sequelize</code> : ORM pour bases de données SQL</li>
+                                <li><code>mysql2</code> ou <code>pg</code> : Drivers de base de données</li>
+                                <li><code>dotenv</code> : Gestion des variables d'environnement</li>
+                                <li><code>cors</code> : Gestion des requêtes cross-origin</li>
+                                <li><code>helmet</code> : Sécurisation des headers HTTP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="environnement" class="step">
+                    <h3><span class="step-number">3</span>🔧 Configuration de l'environnement</h3>
+                    <p>Créez un fichier <code>.env</code> à la racine :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">env</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code># Serveur
+PORT=3000
+NODE_ENV=development
+
+# Base de données MySQL
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=monmotdepasse
+DB_NAME=ma_base
+DB_DIALECT=mysql
+
+# OU PostgreSQL
+# DB_HOST=localhost
+# DB_USER=postgres
+# DB_PASSWORD=1234
+# DB_NAME=carsdb
+# DB_DIALECT=postgres
+# DB_PORT=5432
+
+# Sécurité
+JWT_SECRET=mon_secret_super_securise</code></pre>
+                    </div>
+
+                    <h4>Configuration package.json :</h4>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">json</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Structure -->
+            <section id="structure" class="section">
+                <h2>📁 2. Structure des dossiers</h2>
+                
+                <div class="step">
+                    <h3>📂 Architecture recommandée</h3>
+                    <p>Organisez votre projet avec cette structure claire et évolutive :</p>
+                    
+                    <div class="folder-structure">
+mon-api/
+├── config/
+│   └── database.js          # Configuration DB
+├── controllers/
+│   ├── users.controller.js  # Logique métier Users
+│   └── cars.controller.js   # Logique métier Cars
+├── middleware/
+│   ├── auth.js             # Authentification
+│   ├── logger.js           # Logs
+│   └── errorHandler.js     # Gestion erreurs
+├── models/
+│   ├── index.js            # Connexion Sequelize
+│   ├── user.model.js       # Modèle User
+│   └── car.model.js        # Modèle Car
+├── repositories/
+│   ├── user.repository.js  # Accès données Users
+│   └── car.repository.js   # Accès données Cars
+├── routes/
+│   ├── index.js            # Routes principales
+│   ├── users.routes.js     # Routes Users
+│   └── cars.routes.js      # Routes Cars
+├── services/
+│   ├── user.service.js     # Services Users
+│   └── car.service.js      # Services Cars
+├── utils/
+│   ├── validation.js       # Validations
+│   └── helpers.js          # Fonctions utiles
+├── migrations/             # Migrations DB
+├── seeders/               # Données de test
+├── tests/                 # Tests unitaires
+├── .env                   # Variables d'environnement
+├── .gitignore            # Git ignore
+├── index.js              # Point d'entrée
+└── package.json          # Configuration npm
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✅</span>
+                        <div>
+                            <strong>Avantages de cette structure :</strong>
+                            <ul>
+                                <li>Séparation claire des responsabilités</li>
+                                <li>Facilite la maintenance et les tests</li>
+                                <li>Évolutive pour des projets plus complexes</li>
+                                <li>Suit les conventions Node.js</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Base de données -->
+            <section id="database" class="section">
+                <h2>🗄️ 3. Configuration de la base de données</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">5</span>🔧 Configuration Sequelize</h3>
+                    <p>Créez <code>config/database.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>require('dotenv').config();
+
+module.exports = {
+  development: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
+    dialect: process.env.DB_DIALECT || 'mysql',
+    logging: console.log, // Afficher les requêtes SQL
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  },
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: process.env.DB_DIALECT,
+    logging: false, // Pas de logs en production
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+};</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">6</span>🔗 Initialisation Sequelize</h3>
+                    <p>Créez <code>models/index.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { Sequelize } = require('sequelize');
+require('dotenv').config();
+
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
+    dialect: process.env.DB_DIALECT || 'mysql',
+    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+);
+
+// Test de connexion
+const testConnection = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('✅ Connexion à la base de données réussie');
+  } catch (error) {
+    console.error('❌ Erreur de connexion à la base de données:', error);
+  }
+};
+
+module.exports = { sequelize, testConnection };</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Serveur -->
+            <section id="serveur" class="section">
+                <h2>🖥️ 4. Création du serveur de base</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">7</span>🚀 Serveur minimal</h3>
+                    <p>Créez le fichier principal <code>index.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+
+const { sequelize, testConnection } = require('./models');
+const routes = require('./routes');
+const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
+
+const app = express();
+
+// Middleware de sécurité
+app.use(helmet());
+app.use(cors());
+
+// Middleware de parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Routes
+app.use('/api', routes);
+
+// Middleware d'erreurs (toujours à la fin)
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+// Fonction de démarrage
+const bootstrap = async () => {
+  try {
+    // Test de connexion
+    await testConnection();
+    
+    // Synchronisation des modèles
+    // ⚠️ ATTENTION: { force: true } supprime toutes les données
+    await sequelize.sync({ 
+      force: process.env.NODE_ENV === 'development' && process.env.RESET_DB === 'true',
+      alter: process.env.NODE_ENV === 'development'
+    });
+    
+    console.log('🗄️ Base de données synchronisée');
+    
+    // Démarrage du serveur
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`🚀 Serveur démarré sur le port ${PORT}`);
+      console.log(`🌐 API accessible sur http://localhost:${PORT}/api`);
+    });
+    
+  } catch (error) {
+    console.error('💥 Erreur au démarrage:', error);
+    process.exit(1);
+  }
+};
+
+// Gestion propre de l'arrêt
+process.on('SIGINT', async () => {
+  console.log('\n🛑 Arrêt du serveur...');
+  await sequelize.close();
+  process.exit(0);
+});
+
+bootstrap();</code></pre>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠️</span>
+                        <div>
+                            <strong>Important :</strong> L'option <code>force: true</code> dans <code>sequelize.sync()</code> supprime toutes les données existantes. Utilisez-la uniquement en développement !
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modèles -->
+            <section id="modeles" class="section">
+                <h2>📊 5. Création des modèles</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">8</span>👤 Modèle User</h3>
+                    <p>Créez <code>models/user.model.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  firstName: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [2, 50]
+    }
+  },
+  lastName: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [2, 50]
+    }
+  },
+  email: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
+  password: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    validate: {
+      len: [6, 255]
+    }
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  }
+}, {
+  tableName: 'users',
+  timestamps: true, // createdAt, updatedAt
+  paranoid: true,   // deletedAt (soft delete)
+  hooks: {
+    beforeCreate: (user) => {
+      // Hash du mot de passe ici si nécessaire
+    }
+  }
+});
+
+module.exports = User;</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">9</span>🚗 Modèle Car</h3>
+                    <p>Créez <code>models/car.model.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
+
+const Car = sequelize.define('Car', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  brand: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  model: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1900,
+      max: new Date().getFullYear() + 1
+    }
+  },
+  price: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      min: 0
+    }
+  },
+  color: {
+    type: DataTypes.STRING(30),
+    allowNull: true
+  },
+  isAvailable: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  }
+}, {
+  tableName: 'cars',
+  timestamps: true,
+  paranoid: true
+});
+
+module.exports = Car;</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">10</span>🔗 Relations entre modèles</h3>
+                    <p>Créez <code>models/associations.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const User = require('./user.model');
+const Car = require('./car.model');
+
+// Un utilisateur peut avoir plusieurs voitures
+User.hasMany(Car, {
+  foreignKey: 'userId',
+  as: 'cars'
+});
+
+// Une voiture appartient à un utilisateur
+Car.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'owner'
+});
+
+module.exports = { User, Car };</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Routes et Contrôleurs -->
+            <section id="routes" class="section">
+                <h2>🛣️ 6. Contrôleurs et Routes</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">11</span>🎛️ Contrôleur User</h3>
+                    <p>Créez <code>controllers/user.controller.js</code> avec les opérations CRUD complètes :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { User, Car } = require('../models/associations');
+const { Op } = require('sequelize');
+
+class UserController {
+  // GET /api/users
+  async getAllUsers(req, res, next) {
+    try {
+      const { page = 1, limit = 10, search } = req.query;
+      const offset = (page - 1) * limit;
+      
+      const whereClause = search ? {
+        [Op.or]: [
+          { firstName: { [Op.iLike]: `%${search}%` } },
+          { lastName: { [Op.iLike]: `%${search}%` } },
+          { email: { [Op.iLike]: `%${search}%` } }
+        ]
+      } : {};
+
+      const { count, rows: users } = await User.findAndCountAll({
+        where: whereClause,
+        include: [{
+          model: Car,
+          as: 'cars',
+          attributes: ['id', 'brand', 'model', 'year']
+        }],
+        attributes: { exclude: ['password'] },
+        limit: parseInt(limit),
+        offset: parseInt(offset),
+        order: [['createdAt', 'DESC']]
+      });
+
+      res.json({
+        success: true,
+        data: users,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages: Math.ceil(count / limit),
+          totalItems: count,
+          itemsPerPage: parseInt(limit)
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // GET /api/users/:id
+  async getUserById(req, res, next) {
+    try {
+      const { id } = req.params;
+      
+      const user = await User.findByPk(id, {
+        include: [{
+          model: Car,
+          as: 'cars'
+        }],
+        attributes: { exclude: ['password'] }
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'Utilisateur non trouvé'
+        });
+      }
+
+      res.json({
+        success: true,
+        data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // POST /api/users
+  async createUser(req, res, next) {
+    try {
+      const { firstName, lastName, email, password } = req.body;
+      
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        password // À hasher dans un vrai projet
+      });
+
+      // Retourner sans le mot de passe
+      const { password: _, ...userWithoutPassword } = user.toJSON();
+
+      res.status(201).json({
+        success: true,
+        data: userWithoutPassword,
+        message: 'Utilisateur créé avec succès'
+      });
+    } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError') {
+        return res.status(409).json({
+          success: false,
+          message: 'Cet email est déjà utilisé'
+        });
+      }
+      next(error);
+    }
+  }
+
+  // PUT /api/users/:id
+  async updateUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+
+      const [updatedRowsCount] = await User.update(updates, {
+        where: { id }
+      });
+
+      if (updatedRowsCount === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Utilisateur non trouvé'
+        });
+      }
+
+      const updatedUser = await User.findByPk(id, {
+        attributes: { exclude: ['password'] }
+      });
+
+      res.json({
+        success: true,
+        data: updatedUser,
+        message: 'Utilisateur mis à jour avec succès'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // DELETE /api/users/:id
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      
+      const deletedRowsCount = await User.destroy({
+        where: { id }
+      });
+
+      if (deletedRowsCount === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Utilisateur non trouvé'
+        });
+      }
+
+      res.json({
+        success: true,
+        message: 'Utilisateur supprimé avec succès'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+}
+
+module.exports = new UserController();</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">12</span>🛣️ Routes User</h3>
+                    <p>Créez <code>routes/users.routes.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const express = require('express');
+const userController = require('../controllers/user.controller');
+const { validateUser } = require('../middleware/validation');
+
+const router = express.Router();
+
+// Routes CRUD pour les utilisateurs
+router.get('/', userController.getAllUsers);
+router.get('/:id', userController.getUserById);
+router.post('/', validateUser, userController.createUser);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+
+module.exports = router;</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">13</span>🗂️ Routes principales</h3>
+                    <p>Créez <code>routes/index.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const express = require('express');
+const userRoutes = require('./users.routes');
+const carRoutes = require('./cars.routes');
+
+const router = express.Router();
+
+// Route de santé
+router.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'API en fonctionnement',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Routes des modules
+router.use('/users', userRoutes);
+router.use('/cars', carRoutes);
+
+module.exports = router;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Middleware -->
+            <section id="middleware" class="section">
+                <h2>🛡️ 7. Middleware et gestion d'erreurs</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">14</span>🔥 Gestion d'erreurs</h3>
+                    <p>Créez <code>middleware/errorHandler.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>// Middleware pour les routes non trouvées
+const notFoundHandler = (req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} non trouvée`,
+    method: req.method
+  });
+};
+
+// Middleware global de gestion d'erreurs
+const errorHandler = (err, req, res, next) => {
+  console.error('🔥 Erreur:', {
+    message: err.message,
+    stack: err.stack,
+    url: req.originalUrl,
+    method: req.method,
+    body: req.body,
+    params: req.params,
+    query: req.query
+  });
+
+  // Erreurs Sequelize
+  if (err.name === 'SequelizeValidationError') {
+    const errors = err.errors.map(e => ({
+      field: e.path,
+      message: e.message
+    }));
+    
+    return res.status(400).json({
+      success: false,
+      message: 'Erreur de validation',
+      errors
+    });
+  }
+
+  if (err.name === 'SequelizeDatabaseError') {
+    return res.status(500).json({
+      success: false,
+      message: 'Erreur de base de données'
+    });
+  }
+
+  // Erreur par défaut
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Erreur interne du serveur',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
+};
+
+module.exports = { notFoundHandler, errorHandler };</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">15</span>✅ Validation</h3>
+                    <p>Créez <code>middleware/validation.js</code> :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { body, validationResult } = require('express-validator');
+
+// Middleware de validation pour User
+const validateUser = [
+  body('firstName')
+    .notEmpty()
+    .withMessage('Le prénom est requis')
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Le prénom doit contenir entre 2 et 50 caractères'),
+  
+  body('lastName')
+    .notEmpty()
+    .withMessage('Le nom est requis')
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Le nom doit contenir entre 2 et 50 caractères'),
+  
+  body('email')
+    .isEmail()
+    .withMessage('Email invalide')
+    .normalizeEmail(),
+  
+  body('password')
+    .isLength({ min: 6 })
+    .withMessage('Le mot de passe doit contenir au moins 6 caractères'),
+
+  // Middleware pour vérifier les résultats
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Erreurs de validation',
+        errors: errors.array()
+      });
+    }
+    next();
+  }
+];
+
+module.exports = { validateUser };</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assemblage -->
+            <section id="assemblage" class="section">
+                <h2>🔧 8. Assemblage final</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">16</span>🔄 Mise à jour models/index.js</h3>
+                    <p>Version finale avec import des modèles :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code>const { Sequelize } = require('sequelize');
+require('dotenv').config();
+
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
+    dialect: process.env.DB_DIALECT || 'mysql',
+    logging: process.env.NODE_ENV === 'development' ? console.log : false
+  }
+);
+
+// Import des modèles
+const User = require('./user.model');
+const Car = require('./car.model');
+
+// Configuration des associations
+require('./associations');
+
+// Test de connexion
+const testConnection = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('✅ Connexion à la base de données réussie');
+  } catch (error) {
+    console.error('❌ Erreur de connexion:', error);
+    throw error;
+  }
+};
+
+module.exports = {
+  sequelize,
+  testConnection,
+  User,
+  Car
+};</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>🚀 Test de l'API</h3>
+                    <p>Commandes pour tester votre API :</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code># Démarrage en développement
+npm run dev
+
+# Test de l'API
+curl http://localhost:3000/api/health
+
+# Test création d'utilisateur
+curl -X POST http://localhost:3000/api/users \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Jean","lastName":"Dupont","email":"jean@example.com","password":"123456"}'</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bonnes pratiques -->
+            <section id="bonnes-pratiques" class="section">
+                <h2>✅ 9. Bonnes pratiques</h2>
+                
+                <div class="step">
+                    <h3>📋 Liste de contrôle</h3>
+                    
+                    <h4>🛡️ Sécurité</h4>
+                    <ul class="checklist">
+                        <li>Variables d'environnement pour les secrets</li>
+                        <li>Validation des entrées utilisateur</li>
+                        <li>Limitation du taux de requêtes (rate limiting)</li>
+                        <li>Hashage des mots de passe</li>
+                        <li>Headers de sécurité (helmet)</li>
+                        <li>CORS configuré correctement</li>
+                    </ul>
+
+                    <h4>⚡ Performance</h4>
+                    <ul class="checklist">
+                        <li>Pagination pour les listes</li>
+                        <li>Index sur les colonnes fréquemment recherchées</li>
+                        <li>Limitation de la taille des requêtes</li>
+                        <li>Pool de connexions configuré</li>
+                    </ul>
+
+                    <h4>🔧 Maintenance</h4>
+                    <ul class="checklist">
+                        <li>Logs structurés</li>
+                        <li>Gestion d'erreurs centralisée</li>
+                        <li>Tests unitaires</li>
+                        <li>Documentation API (Swagger)</li>
+                        <li>Scripts de migration</li>
+                        <li>Monitoring et santé de l'API</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>🔍 Commandes utiles</h3>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <button class="copy-btn">Copier</button>
+                        </div>
+                        <pre><code># Démarrage en développement
+npm run dev
+
+# Test de l'API
+curl http://localhost:3000/api/health
+
+# Migration de base de données
+npx sequelize-cli migration:generate --name create-users
+npx sequelize-cli db:migrate
+
+# Seeders (données de test)
+npx sequelize-cli seed:generate --name demo-users
+npx sequelize-cli db:seed:all</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>🚫 Erreurs courantes à éviter</h3>
+                    
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">⚠️</span>
+                        <div>
+                            <strong>Attention à ces pièges :</strong>
+                            <ol>
+                                <li>Oublier la gestion d'erreurs async/await</li>
+                                <li>Ne pas valider les entrées utilisateur</li>
+                                <li>Exposer les mots de passe dans les réponses</li>
+                                <li>Pas de pagination sur les listes</li>
+                                <li>Connexions DB non fermées</li>
+                                <li>Logs sensibles en production</li>
+                                <li>Synchronisation forcée en production (<code>force: true</code>)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>📚 Ressources utiles</h3>
+                    <ul>
+                        <li><a href="https://sequelize.org/docs/v6/" target="_blank">📖 Documentation Sequelize</a></li>
+                        <li><a href="https://expressjs.com/fr/guide/" target="_blank">🚀 Express.js Guide</a></li>
+                        <li><a href="https://github.com/goldbergyoni/nodebestpractices" target="_blank">⭐ Node.js Best Practices</a></li>
+                        <li><a href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design" target="_blank">🏗️ API Design Guidelines</a></li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <span class="alert-icon">💡</span>
+                    <div>
+                        <strong>Conseil final :</strong> Commencez simple, testez chaque étape, et ajoutez les fonctionnalités progressivement. Une API qui fonctionne avec des fonctionnalités de base vaut mieux qu'une API complexe qui ne démarre pas !
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation de fin -->
+            <div class="page-navigation">
+                <a href="#introduction" class="nav-link">
+                    ⬆️ Retour au début
+                </a>
+                <a href="https://github.com" target="_blank" class="nav-link">
+                    📂 Voir sur GitHub
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>🚀 Guide API Express + Sequelize - Créé avec ❤️ pour les développeurs</p>
+                <p>Dernière mise à jour : <span id="last-update"></span></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Afficher la date de dernière mise à jour
+        document.getElementById('last-update').textContent = new Date().toLocaleDateString('fr-FR');
+    </script>
+</body>
+</html>
